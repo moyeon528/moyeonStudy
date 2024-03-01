@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+  securitydy-api: # 난 이부분을 security 라고만 적으려했는데 자동완성이 이래 하래 .. ㅜ
+    container_name: ${CONTAINER_NAME}
+    build: .
+    ports:
+      - ${API_PORT}:8080
+    environment:
+      - server.profile=${API_PROFILE}
+      - TZ=Asia/Seoul
+      - db.url=${MYSQL_URL}
+      - db.username=securitydy
+      - db.password=password
+      - s3.id=${S3_ID}
+      - s3.key=${S3_KEY}
+    #      - kakao.id=${KAKAO_ID}
+    #      - kakao.url=${KAKAO_URL}
+    #      - google.key=${GOOGLE_KEY}
+    volumes:
+      - /log:/log
+networks:
+  default:
+    external:
+      name: ${SERVER_NETWORK}
